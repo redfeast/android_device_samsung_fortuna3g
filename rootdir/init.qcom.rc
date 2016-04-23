@@ -640,10 +640,10 @@ service qcom-c_core-sh /system/bin/sh /init.qcom.class_core.sh
     user root
     oneshot
 
-service qcom-c_main-sh /system/bin/sh /init.class_main.sh
-    class main
-    user root
-    oneshot
+#service qcom-c_main-sh /system/bin/sh /init.class_main.sh
+#    class main
+#    user root
+#    oneshot
 
 on property:vold.decrypt=trigger_restart_framework
     start qcom-c_main-sh
@@ -764,11 +764,13 @@ service qmuxd /system/bin/qmuxd
     class main
     user root
     group radio audio bluetooth gps qcom_diag
-    disabled
 
 service netmgrd /system/bin/netmgrd
     class main
-    disabled
+	
+on property:ro.use_data_netmgrd=false
+    # netmgr not supported on specific target
+    stop netmgrd	
 
 #service ipacm-diag /system/bin/ipacm-diag
 #    class main
@@ -792,10 +794,6 @@ service sensors /system/bin/sensors.qcom
     user root
     group root
     disabled
-
-on property:ro.use_data_netmgrd=false
-    # netmgr not supported on specific target
-    stop netmgrd
 
 # Adjust socket buffer to enlarge TCP receive window for high bandwidth
 # but only if ro.data.large_tcp_window_size property is set.
@@ -1021,10 +1019,10 @@ service wifi-crda /system/bin/sh /system/etc/init.crda.sh
 on property:sys.boot_completed=1
     start qcom-post-boot
 
-service atfwd /system/bin/ATFWD-daemon
-    class late_start
-    user system
-    group system radio
+#service atfwd /system/bin/ATFWD-daemon
+#    class late_start
+#    user system
+#    group system radio
 
 service hostapd /system/bin/hostapd -dd /data/hostapd/hostapd.conf
     class late_start

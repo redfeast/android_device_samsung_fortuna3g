@@ -6,6 +6,8 @@
 
 LOCAL_PATH := device/samsung/fortuna3g
 
+BLOCK_BASED_OTA := false
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := samsung_sm_g530h,fortunave3g,fortuna3g
 
@@ -130,9 +132,9 @@ TARGET_POWERHAL_VARIANT              := qcom
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH      := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS  := true
-BOARD_VOLD_MAX_PARTITIONS 	         := 65
+BOARD_VOLD_MAX_PARTITIONS 	     := 65
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR     := true
-BOARD_SUPPRESS_EMMC_WIPE 	         := true
+BOARD_SUPPRESS_EMMC_WIPE 	     := true
 
 # Camera
 TARGET_PROVIDES_CAMERA_HAL           := true
