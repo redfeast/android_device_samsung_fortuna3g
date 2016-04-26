@@ -12,7 +12,7 @@ persist.rild.nitz_short_ons_2=
 persist.rild.nitz_short_ons_3=
 ril.subscription.types=NV,RUIM
 DEVICE_PROVISIONED=1
-ro.telephony.ril_class=SamsungGrandPrimeRIL
+ro.telephony.ril_class=SamsungQcom3GDSRIL
 
 # Data modules (For evolution RIL model)
 persist.radio.rat_on=combine
