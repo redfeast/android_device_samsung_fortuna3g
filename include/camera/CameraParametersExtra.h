@@ -16,6 +16,8 @@
 
 #define CAMERA_PARAMETERS_EXTRA_C \
 const char CameraParameters::KEY_SUPPORTED_ISO_MODES[] = "iso-values"; \
+const char CameraParameters::KEY_DIS[] = "dis"; \
+const char CameraParameters::DIS_DISABLE[] = "disable"; \
 const char CameraParameters::KEY_FACE_DETECTION[] = "face-detection"; \
 const char CameraParameters::KEY_SUPPORTED_FACE_DETECTION[] = "face-detection-values"; \
 const char CameraParameters::FACE_DETECTION_OFF[] = "off"; \
@@ -125,6 +127,8 @@ void CameraParameters::setPreviewFpsRange(int minFPS, int maxFPS) { };
 
 #define CAMERA_PARAMETERS_EXTRA_H \
     static const char KEY_SUPPORTED_ISO_MODES[]; \
+    static const char KEY_DIS[]; \
+    static const char DIS_DISABLE[]; \
     static const char KEY_FACE_DETECTION[]; \
     static const char KEY_SUPPORTED_FACE_DETECTION[]; \
     static const char FACE_DETECTION_OFF[]; \
