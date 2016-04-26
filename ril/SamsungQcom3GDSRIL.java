@@ -36,20 +36,20 @@ import android.media.AudioManager;
  * Qualcomm RIL for Samsung MSM8916 (3G) devices
  * {@hide}
  */
-public class SamsungGrandPrimeRIL extends RIL {
+public class SamsungQcom3GDSRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 	
 	private AudioManager mAudioManager;
 
-    public SamsungGrandPrimeRIL(Context context, int networkMode, int cdmaSubscription) {
+    public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
 		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
 
-    public SamsungGrandPrimeRIL(Context context, int preferredNetworkType,
+    public SamsungQcom3GDSRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
 		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
