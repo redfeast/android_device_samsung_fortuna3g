@@ -31,7 +31,7 @@
 #include <hardware/hardware.h>
 #include <hardware/camera.h>
 #include <camera/Camera.h>
-#include <camera/CameraParameters.h>
+#include <camera/CameraParameters2.h>
 
 static android::Mutex gCameraWrapperLock;
 static camera_module_t *gVendorModule = 0;
@@ -46,7 +46,7 @@ static int camera_send_command(struct camera_device *device, int32_t cmd,
         int32_t arg1, int32_t arg2);
 
 static struct hw_module_methods_t camera_module_methods = {
-    .open = camera_device_open,
+    .open = camera_device_open
 };
 
 camera_module_t HAL_MODULE_INFO_SYM = {
@@ -61,7 +61,6 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          .dso = NULL, /* remove compilation warnings */
          .reserved = {0}, /* remove compilation warnings */
     },
-
     .get_number_of_cameras = camera_get_number_of_cameras,
     .get_camera_info = camera_get_camera_info,
     .set_callbacks = NULL, /* remove compilation warnings */
@@ -92,17 +91,11 @@ static int check_vendor_module()
         return 0;
 
     rv = hw_get_module_by_class("camera", "vendor",
-            (const hw_module_t**)&gVendorModule);
+            (const hw_module_t **)&gVendorModule);
+
     if (rv)
         ALOGE("failed to open vendor camera module");
     return rv;
-}
-
-static bool needYUV420preview(android::CameraParameters &params) {
-    int video_width, video_height;
-    params.getPreviewSize(&video_width, &video_height);
-    ALOGV("%s : PreviewSize is %x", __FUNCTION__, video_width*video_height);
-    return video_width*video_height <= 720*720;
 }
 
 #define KEY_VIDEO_HFR_VALUES "video-hfr-values"
@@ -165,14 +158,10 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
     bool isVideo = recordingHint && !strcmp(recordingHint, "true");
 
     if (isVideo) {
+        params.set(android::CameraParameters::KEY_DIS, android::CameraParameters::DIS_DISABLE);
         params.set(android::CameraParameters::KEY_ZSL, android::CameraParameters::ZSL_OFF);
     } else {
         params.set(android::CameraParameters::KEY_ZSL, android::CameraParameters::ZSL_ON);
-    }
-
-    if (needYUV420preview(params)) {
-        ALOGV("%s: switching preview format to yuv420p", __FUNCTION__);
-        params.set("preview-format", "yuv420p");
     }
 
     // fix params here
@@ -235,8 +224,7 @@ static void camera_set_callbacks(struct camera_device *device,
     if (!device)
         return;
 
-    VENDOR_CALL(device, set_callbacks, notify_cb, data_cb, data_cb_timestamp,
-            get_memory, user);
+    VENDOR_CALL(device, set_callbacks, notify_cb, data_cb, data_cb_timestamp, get_memory, user);
 }
 
 static void camera_enable_msg_type(struct camera_device *device,
@@ -409,8 +397,7 @@ static int camera_cancel_picture(struct camera_device *device)
     return VENDOR_CALL(device, cancel_picture);
 }
 
-static int camera_set_parameters(struct camera_device *device,
-        const char *params)
+static int camera_set_parameters(struct camera_device *device, const char *params)
 {
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
