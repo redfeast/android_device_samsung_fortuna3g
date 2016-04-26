@@ -30,6 +30,7 @@ import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
 import java.util.ArrayList;
 import java.util.Collections;
+import android.media.AudioManager;
 
 /**
  * Qualcomm RIL for Samsung MSM8916 devices
@@ -39,15 +40,19 @@ public class SamsungGrandPrimeRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
+	
+	private AudioManager mAudioManager;
 
     public SamsungGrandPrimeRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
+		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
 
     public SamsungGrandPrimeRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
+		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
 
@@ -275,6 +280,8 @@ public class SamsungGrandPrimeRIL extends RIL {
 
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
+		
+		mAudioManager.setParameters("realcall=on");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
