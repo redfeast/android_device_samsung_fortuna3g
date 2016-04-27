@@ -41,19 +41,42 @@ public class SamsungQcom3GDSRIL extends RIL {
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 	
-	private AudioManager mAudioManager;
+    private AudioManager mAudioManager;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
-		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
 
     public SamsungQcom3GDSRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
-		mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
+    }
+	
+	public void setUiccSubscription(int slotId, int appIndex, int subId,
+            int subStatus, Message result) {
+        //Note: This RIL request is also valid for SIM and RUIM (ICC card)
+        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SET_UICC_SUBSCRIPTION, result);
+
+        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
+                + " slot: " + slotId + " appIndex: " + appIndex
+                + " subId: " + subId + " subStatus: " + subStatus);
+
+        if(slotId == 1){
+            mAudioManager.setParameters("phone_type=cp1");
+        }else{
+            mAudioManager.setParameters("phone_type=cp2");
+        }
+
+        rr.mParcel.writeInt(slotId);
+        rr.mParcel.writeInt(appIndex);
+        rr.mParcel.writeInt(subId);
+        rr.mParcel.writeInt(subStatus);
+
+        send(rr);
     }
 
     @Override
@@ -81,7 +104,7 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
 		
-		mAudioManager.setParameters("realcall=on");
+            mAudioManager.setParameters("realcall=on");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -228,7 +251,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         int lteCqi = p.readInt();
         int tdScdmaRscp = p.readInt();
         // constructor sets default true, makeSignalStrengthFromRilParcel does not set it
-  	boolean isGsm = true;
+        boolean isGsm = true;
 
         if ((lteSignalStrength & 0xff) == 255 || lteSignalStrength == 99) {
             lteSignalStrength = 99;
@@ -283,7 +306,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
 		
-		mAudioManager.setParameters("realcall=on");
+        mAudioManager.setParameters("realcall=on");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -295,11 +318,11 @@ public class SamsungQcom3GDSRIL extends RIL {
     rejectCall (Message result) {
         RILRequest rr
                 = RILRequest.obtain(RIL_REQUEST_UDUB, result);
+				
+        mAudioManager.setParameters("realcall=off");		
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 		
-		mAudioManager.setParameters("realcall=off");
-
         send(rr);
     }
 
