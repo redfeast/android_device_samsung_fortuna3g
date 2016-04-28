@@ -42,7 +42,6 @@ public class SamsungQcom3GDSRIL extends RIL {
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 	
     private AudioManager mAudioManager;
-	private Integer mInstanceId;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
@@ -55,34 +54,8 @@ public class SamsungQcom3GDSRIL extends RIL {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
-		mInstanceId = instanceId;
     }
 	
-	public void setUiccSubscription(int slotId, int appIndex, int subId,
-            int subStatus, Message result) {
-        //Note: This RIL request is also valid for SIM and RUIM (ICC card)
-        RILRequest rr = RILRequest.obtain(RIL_REQUEST_SET_UICC_SUBSCRIPTION, result);
-
-        if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
-                + " slot: " + slotId + " appIndex: " + appIndex
-                + " subId: " + subId + " subStatus: " + subStatus);
-
-        //if(subId == 0){
-		//	if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus + " phone_type=cp1");
-        //    mAudioManager.setParameters("phone_type=cp1");
-        //}else{
-		//	if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus + " phone_type=cp2");
-        //    mAudioManager.setParameters("phone_type=cp2");
-        //}
-
-        rr.mParcel.writeInt(slotId);
-        rr.mParcel.writeInt(appIndex);
-        rr.mParcel.writeInt(subId);
-        rr.mParcel.writeInt(subStatus);
-
-        send(rr);
-    }
-
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
@@ -108,12 +81,20 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
 		
-			if(mInstanceId == 0){
-				mAudioManager.setParameters("phone_type=cp1");
-			}else{
-				mAudioManager.setParameters("phone_type=cp2");
-			}
-            mAudioManager.setParameters("realcall=on");
+		if(mInstanceId == 0){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
+			mAudioManager.setParameters("phone_type=cp1");
+		}
+		if(mInstanceId == 1){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
+			mAudioManager.setParameters("phone_type=cp2");
+		}	
+        mAudioManager.setParameters("realcall=on");
+		mAudioManager.setParameters("in_call=true");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -316,12 +297,19 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(0);
 		
 		if(mInstanceId == 0){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
 			mAudioManager.setParameters("phone_type=cp1");
-		}else{
-			mAudioManager.setParameters("phone_type=cp2");
 		}
-		
+		if(mInstanceId == 1){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
+			mAudioManager.setParameters("phone_type=cp2");
+		}	
         mAudioManager.setParameters("realcall=on");
+		mAudioManager.setParameters("in_call=true");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -352,6 +340,21 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(3);        // CallDetails.call_domain
         rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
         rr.mParcel.writeInt(0);        // Unknown
+		
+		if(mInstanceId == 0){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
+			mAudioManager.setParameters("phone_type=cp1");
+		}
+		if(mInstanceId == 1){
+			mAudioManager.setParameters("mode=2");
+			mAudioManager.setParameters("sVsid=0");
+			mAudioManager.setParameters("sVsid2=1");
+			mAudioManager.setParameters("phone_type=cp2");
+		}	
+        mAudioManager.setParameters("realcall=on");
+		mAudioManager.setParameters("in_call=true");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
