@@ -42,6 +42,7 @@ public class SamsungQcom3GDSRIL extends RIL {
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 	
     private AudioManager mAudioManager;
+	private Integer mInstanceId;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
@@ -54,6 +55,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
+		mInstanceId = instanceId;
     }
 	
 	public void setUiccSubscription(int slotId, int appIndex, int subId,
@@ -65,11 +67,13 @@ public class SamsungQcom3GDSRIL extends RIL {
                 + " slot: " + slotId + " appIndex: " + appIndex
                 + " subId: " + subId + " subStatus: " + subStatus);
 
-        if(slotId == 1){
-            mAudioManager.setParameters("phone_type=cp1");
-        }else{
-            mAudioManager.setParameters("phone_type=cp2");
-        }
+        //if(subId == 0){
+		//	if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus + " phone_type=cp1");
+        //    mAudioManager.setParameters("phone_type=cp1");
+        //}else{
+		//	if (RILJ_LOGD) riljLog("setUiccSubscription" + slotId + " " + appIndex + " " + subId + " " + subStatus + " phone_type=cp2");
+        //    mAudioManager.setParameters("phone_type=cp2");
+        //}
 
         rr.mParcel.writeInt(slotId);
         rr.mParcel.writeInt(appIndex);
@@ -104,6 +108,11 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
 		
+			if(mInstanceId == 0){
+				mAudioManager.setParameters("phone_type=cp1");
+			}else{
+				mAudioManager.setParameters("phone_type=cp2");
+			}
             mAudioManager.setParameters("realcall=on");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
@@ -305,6 +314,12 @@ public class SamsungQcom3GDSRIL extends RIL {
 
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
+		
+		if(mInstanceId == 0){
+			mAudioManager.setParameters("phone_type=cp1");
+		}else{
+			mAudioManager.setParameters("phone_type=cp2");
+		}
 		
         mAudioManager.setParameters("realcall=on");
 
