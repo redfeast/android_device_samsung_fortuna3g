@@ -22,6 +22,7 @@ LOCAL_SRC_FILES += \
     ../platform_lib_abstractions/elapsed_millis_since_boot.cpp \
     loc_misc_utils.cpp
 
+
 LOCAL_CFLAGS += \
      -fno-short-enums \
      -D_ANDROID_
@@ -45,6 +46,7 @@ LOCAL_COPY_HEADERS:= \
    ../platform_lib_abstractions/platform_lib_time.h \
    ../platform_lib_abstractions/platform_lib_macros.h \
    loc_misc_utils.h
+
 
 LOCAL_MODULE := libgps.utils
 
