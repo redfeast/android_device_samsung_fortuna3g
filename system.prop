@@ -15,14 +15,14 @@ DEVICE_PROVISIONED=1
 ro.telephony.ril_class=SamsungQcom3GDSRIL
 
 # Data modules (For evolution RIL model)
-persist.radio.rat_on=combine
+#persist.radio.rat_on=combine
 ro.use_data_netmgrd=false
 persist.data.netmgrd.qos.enable=false
 telephony.lteOnGsmDevice=0
-ro.telephony.default_network=9
-ro.telephony.default_3g2g=0
-persist.cne.feature=1
-persist.radio.ratstr=true
+#ro.telephony.default_network=9
+#ro.telephony.default_3g2g=0
+#persist.cne.feature=1
+#persist.radio.ratstr=true
 persist.radio.apm_sim_not_pwdn=1
 
 # RIL

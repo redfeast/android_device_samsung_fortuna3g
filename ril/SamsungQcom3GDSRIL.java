@@ -80,25 +80,15 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeInt(uusInfo.getDcs());
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
-          
-          riljLog("ZIM dial " + mInstanceId);
-          
-          if(mInstanceId == 0){
-               riljLog("ZIM dial = 0 =  " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp1");
-          }
-          if(mInstanceId == 1){
-               riljLog("ZIM dial = 1 =  " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp2");
-          }     
+         
+        riljLog("ZIM dial mInstanceId " + mInstanceId);
+		riljLog("ZIM dial phone_type=cp1 " + mInstanceId);
+        mAudioManager.setParameters("mode=2");
+        mAudioManager.setParameters("sVsid=0");
+        mAudioManager.setParameters("sVsid2=1");
+        mAudioManager.setParameters("phone_type=cp1");    
         mAudioManager.setParameters("realcall=on");
-          mAudioManager.setParameters("in_call=true");
+        mAudioManager.setParameters("in_call=true");
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -300,24 +290,14 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
           
-          riljLog("ZIM acceptCall " + mInstanceId);
-          
-          if(mInstanceId == 0){
-               riljLog("ZIM acceptCall = 0 =  " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp1");
-          }
-          if(mInstanceId == 1){
-               riljLog("ZIM acceptCall = 1 =  " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp2");
-          }     
+        riljLog("ZIM acceptCall mInstanceId " + mInstanceId);
+		riljLog("ZIM acceptCall phone_type=cp1 " + mInstanceId);
+        mAudioManager.setParameters("mode=2");
+        mAudioManager.setParameters("sVsid=0");
+        mAudioManager.setParameters("sVsid2=1");
+        mAudioManager.setParameters("phone_type=cp1");    
         mAudioManager.setParameters("realcall=on");
-          mAudioManager.setParameters("in_call=true");
+        mAudioManager.setParameters("in_call=true");  
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -331,7 +311,7 @@ public class SamsungQcom3GDSRIL extends RIL {
                 = RILRequest.obtain(RIL_REQUEST_UDUB, result);
                     
                     
-          riljLog("ZIM rejectCall " + mInstanceId);
+        riljLog("ZIM rejectCall " + mInstanceId);
           
         mAudioManager.setParameters("realcall=off");          
 
@@ -352,24 +332,14 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
         rr.mParcel.writeInt(0);        // Unknown
           
-          riljLog("ZIM dialEmergencyCall " + mInstanceId);
-          
-          if(mInstanceId == 0){
-               riljLog("ZIM dialEmergencyCall = 0 = " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp1");
-          }
-          if(mInstanceId == 1){
-               riljLog("ZIM dialEmergencyCall = 1 = " + mInstanceId);
-               mAudioManager.setParameters("mode=2");
-               mAudioManager.setParameters("sVsid=0");
-               mAudioManager.setParameters("sVsid2=1");
-               mAudioManager.setParameters("phone_type=cp2");
-          }     
+        riljLog("ZIM dialEmergencyCall mInstanceId " + mInstanceId);
+		riljLog("ZIM dialEmergencyCall phone_type=cp1 " + mInstanceId);
+        mAudioManager.setParameters("mode=2");
+        mAudioManager.setParameters("sVsid=0");
+        mAudioManager.setParameters("sVsid2=1");
+        mAudioManager.setParameters("phone_type=cp1");    
         mAudioManager.setParameters("realcall=on");
-          mAudioManager.setParameters("in_call=true");
+        mAudioManager.setParameters("in_call=true");  
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
