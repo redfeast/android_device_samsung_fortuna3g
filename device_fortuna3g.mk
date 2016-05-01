@@ -86,7 +86,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hostapd.deny:system/etc/hostapd/hostapd.deny \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-		
+
+# Charger
+PRODUCT_PACKAGES += \
+	charger_res_images
+
+	
 # SoftAP
 PRODUCT_PACKAGES += \
     libcurl \
@@ -119,8 +124,8 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 	
 # Doze
-PRODUCT_PACKAGES += \
-    SamsungDoze
+#PRODUCT_PACKAGES += \
+#    SamsungDoze
 	
 # Audio
 PRODUCT_PACKAGES += \
@@ -240,7 +245,18 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
     ro.secure=0 \
     ro.adb.secure=0 \
     ro.debuggable=1 \
-    persist.service.adb.enable=1	
+    persist.service.adb.enable=1
+
+# KSM
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.ksm.default=1
+
+# These are the hardware-specific settings that are stored in system properties.
+# Note that the only such settings should be the ones that are too low-level to
+# be reachable from resources or other mechanisms.
+PRODUCT_PROPERTY_OVERRIDES += \
+	cm.updater.uri=http://updates.cm-ota.pp.ua \
+	camera2.portability.force_api=1 \	
 
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
@@ -249,8 +265,8 @@ PRODUCT_TAGS += dalvik.gc.type-precise
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
 
 # Dalvik heap config
-include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
-include frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk
+#include frameworks/native/build/phone-hdpi-512-dalvik-heap.mk
+#include frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
