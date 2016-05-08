@@ -25,11 +25,6 @@ persist.data.netmgrd.qos.enable=false
 
 # Display
 ro.sf.lcd_density=240
-debug.composition.type=c2d
-debug.sf.gpu_comp_tiling=1
-debug.mdpcomp.idletime=600
-persist.hwc.mdpcomp.enable=true
-persist.hwc.ptor.enable=true
 ro.opengles.version=196608
 
 # Perf
@@ -45,13 +40,6 @@ audio.offload.buffer.size.kb=32
 audio.offload.min.duration.secs=30
 av.offload.enable=true
 use.voice.path.for.pcm.voip=true
-
-# Media
-mm.enable.qcom_parser=3179041
-mm.enable.smoothstreaming=true
-vidc.enc.narrow.searchrange=1
-media.aac_51_output_enabled=true
-camera2.portability.force_api=1
 
 # Wi-Fi, Bluetooth
 wifi.interface=wlan0
@@ -71,4 +59,3 @@ ro.gps.agps_provider=1
 
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog
-ro.config.low_ram=true

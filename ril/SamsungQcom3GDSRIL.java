@@ -64,8 +64,8 @@ public class SamsungQcom3GDSRIL extends RIL {
 		if(SIMidAudio == 0){
 		  riljLog("OemRilAudioHack(cp1) " + mInstanceId + " SIMidAudio " + SIMidAudio);
           mAudioManager.setParameters("mode=2");
-          mAudioManager.setParameters("sVsid=1");
-          mAudioManager.setParameters("sVsid2=0");
+          mAudioManager.setParameters("sVsid=0");
+          mAudioManager.setParameters("sVsid2=1");
           mAudioManager.setParameters("phone_type=cp1");
           mAudioManager.setParameters("realcall=on");
           mAudioManager.setParameters("in_call=true");
@@ -108,18 +108,18 @@ public class SamsungQcom3GDSRIL extends RIL {
          
         riljLog("dial (mInstanceId) -> " + mInstanceId);
 		
-		OemRilAudioHack(-1);
+		//OemRilAudioHack(-1);
 		
-		if(mInstanceId == 0){
-			riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
-			OemRilAudioHack(0);
-		}else if(mInstanceId == 1){
-			riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
-			OemRilAudioHack(1);
-		}else{
-			riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
-			OemRilAudioHack(0);
-		}
+		//if(mInstanceId == 0){
+		//	riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
+		//	OemRilAudioHack(0);
+		//}else if(mInstanceId == 1){
+		//	riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
+		//	OemRilAudioHack(1);
+		//}else{
+		//	riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
+		//	OemRilAudioHack(0);
+		//}
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -371,18 +371,18 @@ public class SamsungQcom3GDSRIL extends RIL {
           
         riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
 		
-		OemRilAudioHack(-1);
+		//OemRilAudioHack(-1);
 		
-		if(mInstanceId == 0){
-			riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
-			OemRilAudioHack(0);
-		}else if(mInstanceId == 1){
-			riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
-			OemRilAudioHack(1);
-		}else{
-			riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
-			OemRilAudioHack(0);
-		} 
+		//if(mInstanceId == 0){
+		//	riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
+		//	OemRilAudioHack(0);
+		//}else if(mInstanceId == 1){
+		//	riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
+		//	OemRilAudioHack(1);
+		//}else{
+		//	riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
+		//	OemRilAudioHack(0);
+		//} 
 
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
