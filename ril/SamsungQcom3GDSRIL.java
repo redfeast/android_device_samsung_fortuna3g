@@ -326,7 +326,7 @@ public class SamsungQcom3GDSRIL extends RIL {
     @Override
     protected void
     processUnsolicited (Parcel p) {
-        Object ret;
+        Object ret = null;
         int dataPosition = p.dataPosition();
         int response = p.readInt();
         int newResponse = response;
@@ -341,6 +341,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         }
         switch (response) {
               case RIL_UNSOL_AM:
+			    samsungUnsljLogRet(response, ret);
                 String amString = (String) ret;
                 Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
 
@@ -496,5 +497,19 @@ public class SamsungQcom3GDSRIL extends RIL {
             response[3] = "2";
         }
         return response;
+    }
+	
+	static String
+    samsungResponseToString(int request)
+    {
+        switch(request) {
+            // SAMSUNG STATES
+            case RIL_UNSOL_AM: return "RIL_UNSOL_AM";
+            default: return "<unknown response: "+request+">";
+        }
+    }
+    
+    protected void samsungUnsljLogRet(int response, Object ret) {
+        riljLog("[UNSL]< " + samsungResponseToString(response) + " " + retToString(response, ret));
     }
 }
