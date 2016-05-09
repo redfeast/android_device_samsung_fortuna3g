@@ -40,6 +40,7 @@ public class SamsungQcom3GDSRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
+	private static final int RIL_UNSOL_AM = 11010;
      
     private AudioManager mAudioManager;
 
@@ -64,8 +65,8 @@ public class SamsungQcom3GDSRIL extends RIL {
 		if(SIMidAudio == 0){
 		  riljLog("OemRilAudioHack(cp1) " + mInstanceId + " SIMidAudio " + SIMidAudio);
           mAudioManager.setParameters("mode=2");
-          mAudioManager.setParameters("sVsid=0");
-          mAudioManager.setParameters("sVsid2=1");
+          mAudioManager.setParameters("sVsid=1");
+          mAudioManager.setParameters("sVsid2=0");
           mAudioManager.setParameters("phone_type=cp1");
           mAudioManager.setParameters("realcall=on");
           mAudioManager.setParameters("in_call=true");
@@ -108,19 +109,6 @@ public class SamsungQcom3GDSRIL extends RIL {
          
         riljLog("dial (mInstanceId) -> " + mInstanceId);
 		
-		//OemRilAudioHack(-1);
-		
-		//if(mInstanceId == 0){
-		//	riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
-		//	OemRilAudioHack(0);
-		//}else if(mInstanceId == 1){
-		//	riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
-		//	OemRilAudioHack(1);
-		//}else{
-		//	riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
-		//	OemRilAudioHack(0);
-		//}
-
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -303,13 +291,47 @@ public class SamsungQcom3GDSRIL extends RIL {
             case RIL_UNSOL_ON_SS_LL:
                 newResponse = RIL_UNSOL_ON_SS;
                 break;
+			case RIL_UNSOL_AM:
+                ret = responseString(p);
+                break;	
         }
-        if (newResponse != response) {
-            p.setDataPosition(dataPosition);
-            p.writeInt(newResponse);
+        switch (response) {
+              case RIL_UNSOL_AM:
+                samsungUnsljLogRet(response, ret);
+                String amString = (String) ret;
+                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
+
+                try {
+                    Runtime.getRuntime().exec("am " + amString);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
+                }
+                break;
+
+	    default:
+             if (newResponse != response) {
+                  p.setDataPosition(dataPosition);
+                  p.writeInt(newResponse);
+            }
+	        p.setDataPosition(dataPosition);
+    		super.processUnsolicited(p);
+    		return;
+	}
+    }
+	
+	static String
+    samsungResponseToString(int request)
+    {
+        switch(request) {
+            // SAMSUNG STATES
+            case RIL_UNSOL_AM: return "RIL_UNSOL_AM";
+            default: return "<unknown response: "+request+">";
         }
-        p.setDataPosition(dataPosition);
-        super.processUnsolicited(p);
+    }
+	
+	protected void samsungUnsljLogRet(int response, Object ret) {
+        riljLog("[UNSL]< " + samsungResponseToString(response) + " " + retToString(response, ret));
     }
 
     @Override
@@ -322,8 +344,6 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(0);
           
         riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
-		
-		OemRilAudioHack(-1);
 		
 		if(mInstanceId == 0){
 			riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
@@ -371,19 +391,6 @@ public class SamsungQcom3GDSRIL extends RIL {
           
         riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
 		
-		//OemRilAudioHack(-1);
-		
-		//if(mInstanceId == 0){
-		//	riljLog("acceptCall (mInstanceId) SEND CP1 -> " + mInstanceId);
-		//	OemRilAudioHack(0);
-		//}else if(mInstanceId == 1){
-		//	riljLog("acceptCall (mInstanceId) SEND CP2 -> " + mInstanceId);
-		//	OemRilAudioHack(1);
-		//}else{
-		//	riljLog("acceptCall (mInstanceId) SEND DEFAULT CP2 -> " + mInstanceId);
-		//	OemRilAudioHack(0);
-		//} 
-
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
