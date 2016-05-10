@@ -59,3 +59,5 @@ ro.gps.agps_provider=1
 
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog
+
+ro.multisim.set_audio_params=true
