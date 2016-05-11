@@ -128,12 +128,7 @@ public class SamsungQcom3GDSRIL extends RIL {
          
         riljLog("dial (mInstanceId) -> " + mInstanceId);
 		
-		if(mAudioManager.getMode() == mAudioManager.MODE_IN_CALL){
-			mAudioManager.setParameters("realcall=on");
-		}
-		if(mAudioManager.getMode() == mAudioManager.MODE_NORMAL){
-			mAudioManager.setParameters("realcall=off");
-		}
+		mAudioManager.setParameters("realcall=on");
 		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -357,12 +352,7 @@ public class SamsungQcom3GDSRIL extends RIL {
           
         riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
 		
-		if(mAudioManager.getMode() == mAudioManager.MODE_IN_CALL){
-			mAudioManager.setParameters("realcall=on");
-		}
-		if(mAudioManager.getMode() == mAudioManager.MODE_NORMAL){
-			mAudioManager.setParameters("realcall=off");
-		}
+		mAudioManager.setParameters("realcall=on");
 		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -378,12 +368,7 @@ public class SamsungQcom3GDSRIL extends RIL {
                     
         riljLog("rejectCall (mInstanceId) -> " + mInstanceId);
 		
-		if(mAudioManager.getMode() == mAudioManager.MODE_IN_CALL){
-			mAudioManager.setParameters("realcall=on");
-		}
-		if(mAudioManager.getMode() == mAudioManager.MODE_NORMAL){
-			mAudioManager.setParameters("realcall=off");
-		}
+		mAudioManager.setParameters("realcall=off");
 		         
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
           
@@ -404,13 +389,8 @@ public class SamsungQcom3GDSRIL extends RIL {
           
         riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
 		
-		if(mAudioManager.getMode() == mAudioManager.MODE_IN_CALL){
-			mAudioManager.setParameters("realcall=on");
-		}
-		if(mAudioManager.getMode() == mAudioManager.MODE_NORMAL){
-			mAudioManager.setParameters("realcall=off");
-		}
-		
+		mAudioManager.setParameters("realcall=on");
+
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
