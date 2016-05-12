@@ -85,19 +85,15 @@ public class SamsungQcom3GDSRIL extends RIL {
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
 	private static final int RIL_UNSOL_AM = 11010;
-     
-    private AudioManager mAudioManager;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
-        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
 
     public SamsungQcom3GDSRIL(Context context, int preferredNetworkType,
             int cdmaSubscription, Integer instanceId) {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
-        mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
         mQANElements = 6;
     }
      
@@ -125,10 +121,6 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeInt(uusInfo.getDcs());
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
-         
-        riljLog("dial (mInstanceId) -> " + mInstanceId);
-		
-		mAudioManager.setParameters("realcall=on");
 		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -349,10 +341,6 @@ public class SamsungQcom3GDSRIL extends RIL {
 
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
-          
-        riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
-		
-		mAudioManager.setParameters("realcall=on");
 		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
@@ -364,12 +352,7 @@ public class SamsungQcom3GDSRIL extends RIL {
     rejectCall (Message result) {
         RILRequest rr
                 = RILRequest.obtain(RIL_REQUEST_UDUB, result);
-                    
-                    
-        riljLog("rejectCall (mInstanceId) -> " + mInstanceId);
-		
-		mAudioManager.setParameters("realcall=off");
-		         
+         
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
           
         send(rr);
@@ -386,11 +369,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(3);        // CallDetails.call_domain
         rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
         rr.mParcel.writeInt(0);        // Unknown
-          
-        riljLog("acceptCall (mInstanceId) -> " + mInstanceId);
-		
-		mAudioManager.setParameters("realcall=on");
-
+        
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
