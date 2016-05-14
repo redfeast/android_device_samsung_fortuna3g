@@ -78,6 +78,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/configs/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/configs/izat.conf:system/etc/izat.conf \
+	$(LOCAL_PATH)/configs/qmi_config.xml:system/etc/data/qmi_config.xml \
     $(LOCAL_PATH)/configs/prima/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
     $(LOCAL_PATH)/configs/prima/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini \
     $(LOCAL_PATH)/configs/prima/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin \
@@ -90,7 +91,6 @@ PRODUCT_COPY_FILES += \
 # Charger
 PRODUCT_PACKAGES += \
 	charger_res_images
-
 	
 # SoftAP
 PRODUCT_PACKAGES += \
@@ -158,9 +158,6 @@ PRODUCT_PACKAGES += \
     gralloc.msm8916 \
     hwcomposer.msm8916 \
     memtrack.msm8916 \
-    liboverlay \
-    libqdutils \
-    libqservice \
     libtinyxml
 
 # Power
@@ -186,20 +183,19 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-    libdivxdrmdecrypt \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
     libOmxEvrcEnc \
     libOmxQcelp13Enc \
     libOmxVdec \
-    libOmxVdecHevc \
     libOmxVenc \
     libstagefrighthw \
-    libdashplayer \
+    libdashplayer
+
+PRODUCT_PACKAGES += \
     qcmediaplayer
-	
+
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
 
@@ -262,8 +258,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Note that the only such settings should be the ones that are too low-level to
 # be reachable from resources or other mechanisms.
 PRODUCT_PROPERTY_OVERRIDES += \
-	cm.updater.uri=http://updates.cm-ota.pp.ua \
-	camera2.portability.force_api=1 \
+	cm.updater.uri=http://updates.cm-ota.pp.ua
 
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise

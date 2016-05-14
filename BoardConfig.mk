@@ -129,6 +129,7 @@ TARGET_HW_DISK_ENCRYPTION            := true
 
 # Build our own PowerHAL
 TARGET_POWERHAL_VARIANT              := qcom
+TARGET_POWERHAL_SET_INTERACTIVE_EXT  := $(LOCAL_PATH)/power/power_ext.c
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH      := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
@@ -141,7 +142,6 @@ BOARD_SUPPRESS_EMMC_WIPE 	     := true
 TARGET_PROVIDES_CAMERA_HAL := true
 TARGET_USE_VENDOR_CAMERA_EXT := true
 USE_DEVICE_SPECIFIC_CAMERA := true
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_CAMERA_HARDWARE
 
 # CMHW
 BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
