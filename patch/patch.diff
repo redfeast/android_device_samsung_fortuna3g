@@ -1,0 +1,27 @@
+diff -ur a/packages/services/Telecomm/src/com/android/server/telecom/CallAudioManager.java b/packages/services/Telecomm/src/com/android/server/telecom/CallAudioManager.java
+--- a/packages/services/Telecomm/src/com/android/server/telecom/CallAudioManager.java	Wed Apr 20 08:50:20 2016
++++ b/packages/services/Telecomm/src/com/android/server/telecom/CallAudioManager.java	Thu May 12 01:31:40 2016
+@@ -481,6 +481,7 @@
+ 
+         Call call = CallsManager.getInstance().getForegroundCall();
+         boolean setMsimAudioParams = SystemProperties.getBoolean("ro.multisim.set_audio_params", false);
++        boolean setSamsungRealcallParams = SystemProperties.getBoolean("ro.telephony.samsung.realcall", false);
+ 
+         Log.v(this, "Request to change audio mode from %d to %d", oldMode, newMode);
+ 
+@@ -488,9 +489,15 @@
+             if (oldMode == AudioManager.MODE_IN_CALL && newMode == AudioManager.MODE_RINGTONE) {
+                 Log.i(this, "Transition from IN_CALL -> RINGTONE. Resetting to NORMAL first.");
+                 mAudioManager.setMode(AudioManager.MODE_NORMAL);
++                if(setSamsungRealcallParams){
++                    mAudioManager.setParameters("realcall=off");
++                }
+             }
+             if (call != null && call.getTargetPhoneAccount() != null && setMsimAudioParams) {
+                 setAudioParameters(call, newMode);
++                if(setSamsungRealcallParams){
++                    mAudioManager.setParameters("realcall=on");
++            }
+             }
+             mAudioManager.setMode(newMode);
+             mMostRecentlyUsedMode = newMode;

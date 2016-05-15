@@ -60,5 +60,6 @@ ro.gps.agps_provider=1
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog
 
+# Samsung OEM
 ro.multisim.set_audio_params=true
 ro.telephony.samsung.realcall=true
