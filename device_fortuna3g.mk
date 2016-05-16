@@ -38,6 +38,7 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/rootdir/init.qcom.rc:root/init.qcom.rc \
 	$(LOCAL_PATH)/rootdir/init.target.rc:root/init.target.rc \
 	$(LOCAL_PATH)/rootdir/init.qcom.usb.rc:root/init.qcom.usb.rc \
+	$(LOCAL_PATH)/rootdir/init.qcom.power.rc:root/init.qcom.power.rc \
 	$(LOCAL_PATH)/rootdir/init.qcom.factory.sh:root/init.qcom.factory.sh \
 	$(LOCAL_PATH)/rootdir/init.class_main.sh:root/init.class_main.sh \
 	$(LOCAL_PATH)/rootdir/init.mdm.sh:root/init.mdm.sh \
