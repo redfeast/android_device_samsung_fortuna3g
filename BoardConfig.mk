@@ -149,9 +149,14 @@ BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
 TARGET_PROVIDES_LIBLIGHT            := true
 
 # Media
-TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
+#TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
 
 # Display
+TARGET_USES_ION                     := true
+TARGET_USES_NEW_ION_API 	    := true
+TARGET_USES_OVERLAY 		    := true
+TARGET_USES_C2D_COMPOSITION         := true
+TARGET_HARDWARE_3D		    := false
 TARGET_HAVE_HDMI_OUT 		    := false
 USE_OPENGL_RENDERER                 := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS     := 3
