@@ -88,44 +88,13 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
-# Charger
-PRODUCT_PACKAGES += \
-	charger_res_images
-	
-# SoftAP
-PRODUCT_PACKAGES += \
-    libcurl \
-    libqsap_sdk \
-    libQWiFiSoftApCfg
-	
-# Wifi
-PRODUCT_PACKAGES += \
-    libnetcmdiface \
-    macloader
-
-# CRDA
-PRODUCT_PACKAGES += \
-    crda \
-    linville.key.pub.pem \
-    regdbdump \
-    regulatory.bin
-	
-# QRNGD
-PRODUCT_PACKAGES += \
-    qrngd \
-    qrngp
-
-# WPA supplicant
-PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    hostapd \
-    libwpa_client \
-    wpa_supplicant \
-    wpa_supplicant.conf
-	
 # Doze
 PRODUCT_PACKAGES += \
     SamsungDoze
+	
+# Charger
+PRODUCT_PACKAGES += \
+	charger_res_images
 	
 # Audio
 PRODUCT_PACKAGES += \
@@ -141,17 +110,13 @@ PRODUCT_PACKAGES += \
     libqcomvisualizer \
     libqcomvoiceprocessing
 	
-#Basic
-PRODUCT_PACKAGES += \
-    static_busybox
-
 # TinyAlsa utils
 PRODUCT_PACKAGES += \
     tinyplay \
     tinycap \
     tinymix \
-    tinypcminfo
-
+    tinypcminfo	
+	
 # Display
 PRODUCT_PACKAGES += \
     copybit.msm8916 \
@@ -191,9 +156,7 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libstagefrighthw \
-    libdashplayer
-
-PRODUCT_PACKAGES += \
+    libdashplayer \
     qcmediaplayer
 
 PRODUCT_BOOT_JARS += \
@@ -211,7 +174,7 @@ PRODUCT_PACKAGES += \
     ebtables \
     ethertypes \
     libebtc
-
+	
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
@@ -221,24 +184,45 @@ PRODUCT_PACKAGES += \
     e2fsck \
     fsck.f2fs
 
-# WCNSS service daemon
-PRODUCT_PACKAGES += \
-    libwcnss_qmi \
-    wcnss_service
-
-# Misc
-PRODUCT_PACKAGES += \
-    libxml2 \
-    Stk \
-	Stk2
-	
 # Live Wallpapers
 PRODUCT_PACKAGES += \
     LiveWallpapers \
     LiveWallpapersPicker \
     VisualizationWallpapers \
-    librs_jni	
+    librs_jni
+
+# WCNSS service daemon
+PRODUCT_PACKAGES += \
+    libwcnss_qmi \
+    wcnss_service
 	
+# Misc
+PRODUCT_PACKAGES += \
+    libxml2 \
+    Stk \
+	Stk2	
+	
+# SoftAP
+PRODUCT_PACKAGES += \
+    libcurl \
+    libqsap_sdk \
+    libQWiFiSoftApCfg
+	
+# CRDA
+PRODUCT_PACKAGES += \
+    crda \
+    linville.key.pub.pem \
+    regdbdump \
+    regulatory.bin
+
+# WPA supplicant
+PRODUCT_PACKAGES += \
+    dhcpcd.conf \
+    hostapd \
+    libwpa_client \
+    wpa_supplicant \
+    wpa_supplicant.conf
+		
 # USB
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp

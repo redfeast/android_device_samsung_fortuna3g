@@ -26,6 +26,18 @@ persist.data.netmgrd.qos.enable=false
 # Display
 ro.sf.lcd_density=240
 ro.opengles.version=196608
+debug.composition.type=c2d
+debug.sf.gpu_comp_tiling=1
+debug.mdpcomp.idletime=600
+persist.hwc.mdpcomp.enable=true
+persist.hwc.ptor.enable=true
+
+# Media
+mm.enable.qcom_parser=3179041
+mm.enable.smoothstreaming=true
+vidc.enc.narrow.searchrange=1
+media.aac_51_output_enabled=true
+camera2.portability.force_api=1
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
