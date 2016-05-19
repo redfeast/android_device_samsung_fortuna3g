@@ -46,7 +46,7 @@ static int camera_send_command(struct camera_device *device, int32_t cmd,
         int32_t arg1, int32_t arg2);
 
 static struct hw_module_methods_t camera_module_methods = {
-    .open = camera_device_open,
+    .open = camera_device_open
 };
 
 camera_module_t HAL_MODULE_INFO_SYM = {
@@ -61,7 +61,6 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          .dso = NULL, /* remove compilation warnings */
          .reserved = {0}, /* remove compilation warnings */
     },
-
     .get_number_of_cameras = camera_get_number_of_cameras,
     .get_camera_info = camera_get_camera_info,
     .set_callbacks = NULL, /* remove compilation warnings */
@@ -96,13 +95,6 @@ static int check_vendor_module()
     if (rv)
         ALOGE("failed to open vendor camera module");
     return rv;
-}
-
-static bool needYUV420preview(android::CameraParameters &params) {
-    int video_width, video_height;
-    params.getPreviewSize(&video_width, &video_height);
-    ALOGV("%s : PreviewSize is %x", __FUNCTION__, video_width*video_height);
-    return video_width*video_height <= 720*720;
 }
 
 #define KEY_VIDEO_HFR_VALUES "video-hfr-values"
@@ -169,13 +161,15 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
     } else {
         params.set(android::CameraParameters::KEY_ZSL, android::CameraParameters::ZSL_ON);
     }
-
-    if (needYUV420preview(params)) {
-        ALOGV("%s: switching preview format to yuv420p", __FUNCTION__);
-        params.set("preview-format", "yuv420p");
-    }
-
+   
     // fix params here
+	if (id == 0) {
+		params.set("preview-format", "yuv420p");
+	}
+	if (id == 1) {
+		params.set(android::CameraParameters::KEY_JPEG_QUALITY, "0,1,2");
+	}
+	
     // No need to fix-up ISO_HJR, it is the same for userspace and the camera lib
     if (params.get("iso")) {
         const char *isoMode = params.get(android::CameraParameters::KEY_ISO_MODE);
