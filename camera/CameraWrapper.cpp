@@ -167,7 +167,7 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
 		params.set("preview-format", "yuv420p");
 	}
 	if (id == 1) {
-		params.set(android::CameraParameters::KEY_JPEG_QUALITY, "0,1,2");
+		params.set(android::CameraParameters::KEY_JPEG_QUALITY, "90");
 	}
 	
     // No need to fix-up ISO_HJR, it is the same for userspace and the camera lib

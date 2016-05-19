@@ -37,7 +37,6 @@ mm.enable.qcom_parser=3179041
 mm.enable.smoothstreaming=true
 vidc.enc.narrow.searchrange=1
 media.aac_51_output_enabled=true
-camera2.portability.force_api=1
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
@@ -68,8 +67,6 @@ persist.gps.qc_nlp_in_use=1
 ro.qc.sdk.izat.premium_enabled=0
 ro.qc.sdk.izat.service_mask=0x0
 ro.gps.agps_provider=1
-
-qcom.bluetooth.soc=rome
 
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog

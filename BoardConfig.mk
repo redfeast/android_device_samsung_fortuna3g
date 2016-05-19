@@ -28,7 +28,6 @@ TARGET_BOARD_SUFFIX             := _32
 BOARD_USES_QC_TIME_SERVICES        := true
 TARGET_USES_QCOM_BSP               := true
 TARGET_PLATFORM_DEVICE_BASE        := /devices/soc.0/
-HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE := true
 COMMON_GLOBAL_CFLAGS               += -DQCOM_BSP
 BOARD_USES_QCOM_HARDWARE           := true
 
