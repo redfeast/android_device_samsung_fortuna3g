@@ -68,6 +68,9 @@ ro.qc.sdk.izat.premium_enabled=0
 ro.qc.sdk.izat.service_mask=0x0
 ro.gps.agps_provider=1
 
+# Time
+persist.timed.enable=true
+
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog
 
