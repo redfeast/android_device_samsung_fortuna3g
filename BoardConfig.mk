@@ -112,6 +112,7 @@ TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/init/init_fortuna3g.c
 # Audio
 TARGET_QCOM_AUDIO_VARIANT            := caf
 BOARD_USES_ALSA_AUDIO                := true
+AUDIO_FEATURE_LOW_LATENCY_PRIMARY    := true
 
 # Charger
 BOARD_CHARGER_SHOW_PERCENTAGE        := true
