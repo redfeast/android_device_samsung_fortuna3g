@@ -33,10 +33,10 @@ persist.hwc.mdpcomp.enable=true
 persist.hwc.ptor.enable=true
 
 # Media
-mm.enable.qcom_parser=3179041
+mm.enable.qcom_parser=3183219
 mm.enable.smoothstreaming=true
-vidc.enc.narrow.searchrange=1
 media.aac_51_output_enabled=true
+vidc.enc.narrow.searchrange=1
 
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
