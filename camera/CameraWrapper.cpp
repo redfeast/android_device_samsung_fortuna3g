@@ -116,12 +116,6 @@ static char *camera_fixup_getparams(int id, const char *settings)
     params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.5");
     params.set(android::CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "-4");
     params.set(android::CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "4");
-	
-	
-	params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_HW, "0");
-    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_SW, "0");
-    params.set(android::CameraParameters::KEY_FACE_DETECTION, "off");
-    params.set(android::CameraParameters::KEY_SUPPORTED_FACE_DETECTION, "off");
 
     /* If the vendor has HFR values but doesn't also expose that
      * this can be turned off, fixup the params to tell the Camera
@@ -169,12 +163,8 @@ static char *camera_fixup_setparams(struct camera_device *device, const char *se
     }
    
     // fix params here
-	params.set("preview-format", "yuv420p");
+    params.set("preview-format", "yuv420p");
 	
-	params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_HW, "0");
-    params.set(android::CameraParameters::KEY_MAX_NUM_DETECTED_FACES_SW, "0");
-    params.set(android::CameraParameters::KEY_FACE_DETECTION, "off");
-    params.set(android::CameraParameters::KEY_SUPPORTED_FACE_DETECTION, "off");
 	
     // No need to fix-up ISO_HJR, it is the same for userspace and the camera lib
     if (params.get("iso")) {
