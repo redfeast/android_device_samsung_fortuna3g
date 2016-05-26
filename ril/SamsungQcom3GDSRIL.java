@@ -84,9 +84,7 @@ public class SamsungQcom3GDSRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
-	private static final int RIL_UNSOL_AM = 11010;
-	
-	private static int sEnabledDataSimId = -1;
+    private static final int RIL_UNSOL_AM = 11010;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
@@ -98,36 +96,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mQANElements = 6;
     }
-	
-	@Override
-    public void setDataAllowed(boolean allowed, Message result) {
-        int simId = mInstanceId == null ? 0 : mInstanceId;
-        if (!allowed) {
-            // Deactivate data call. This happens when switching data SIM
-            // and the framework will wait for data call to be deactivated.
-            // Emulate this by switching to the other SIM.
-            simId = 1 - simId;
-        }
-
-        if (sEnabledDataSimId != simId) {
-            if (RILJ_LOGD) riljLog("Setting data subscription to " + simId);
-             RILRequest rr = RILRequest.obtain(RIL_REQUEST_ALLOW_DATA, result);
-			if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest)
-                + " " + allowed);
-
-			rr.mParcel.writeInt(1);
-			rr.mParcel.writeInt(allowed ? 1 : 0);
-			sEnabledDataSimId = simId;
-			send(rr);
-        } else {
-            if (RILJ_LOGD) riljLog("Data subscription is already set to " + simId);
-            if (result != null) {
-                AsyncResult.forMessage(result, 0, null);
-                result.sendToTarget();
-            }
-        }
-    }
- 
+     
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
@@ -152,7 +121,7 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeInt(uusInfo.getDcs());
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
-
+		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -363,7 +332,7 @@ public class SamsungQcom3GDSRIL extends RIL {
     		return;
 	}
     }
-
+	
     @Override
     public void
     acceptCall (Message result) {
@@ -372,7 +341,7 @@ public class SamsungQcom3GDSRIL extends RIL {
 
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
-
+		
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -389,7 +358,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(3);        // CallDetails.call_domain
         rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
         rr.mParcel.writeInt(0);        // Unknown
-
+        
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
