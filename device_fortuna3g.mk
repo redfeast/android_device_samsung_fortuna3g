@@ -64,7 +64,6 @@ PRODUCT_COPY_FILES += \
 	$(LOCAL_PATH)/keylayout/synaptics_rmi4_i2c.kl:system/usr/keylayout/synaptics_rmi4_i2c.kl
 	
 # Configurations
-# $(LOCAL_PATH)/configs/audio_platform_info.xml:system/etc/audio_platform_info.xml
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
@@ -92,10 +91,6 @@ PRODUCT_COPY_FILES += \
 # Doze
 PRODUCT_PACKAGES += \
     SamsungDoze
-	
-# Charger
-PRODUCT_PACKAGES += \
-    charger_res_images
 	
 # Audio
 PRODUCT_PACKAGES += \
@@ -168,11 +163,11 @@ PRODUCT_BOOT_JARS += \
     qcmediaplayer
 
 # FM
-PRODUCT_PACKAGES += \
-    FM2 \
-    FMRecord \
-    libqcomfm_jni \
-    qcom.fmradio
+#PRODUCT_PACKAGES += \
+#    FM2 \
+#    FMRecord \
+#    libqcomfm_jni \
+#    qcom.fmradio
 
 # IPv6 tethering
 PRODUCT_PACKAGES += \

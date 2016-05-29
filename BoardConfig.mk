@@ -24,12 +24,8 @@ TARGET_CPU_CORTEX_A53           := true
 ARCH_ARM_HAVE_TLS_REGISTER      := true
 
 # Qcom
-BOARD_USES_QC_TIME_SERVICES        := true
-TARGET_USES_QCOM_BSP               := true
-TARGET_PLATFORM_DEVICE_BASE        := /devices/soc.0/
-COMMON_GLOBAL_CFLAGS               += -DQCOM_BSP
-BOARD_USES_QCOM_HARDWARE           := true
-HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE := true
+TARGET_PLATFORM_DEVICE_BASE          := /devices/soc.0/
+HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE   := true
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -44,8 +40,7 @@ BOARD_KERNEL_PAGESIZE        := 2048
 BOARD_KERNEL_SEPARATED_DT    := true
 TARGET_KERNEL_SOURCE         := kernel/samsung/fortunaxx3g
 #TARGET_KERNEL_CUSTOM_TOOLCHAIN  := arm-eabi-4.7
-
-TARGET_KERNEL_CONFIG                 := msm8916_fortuna3g_eur_defconfig
+TARGET_KERNEL_CONFIG             := msm8916_fortuna3g_eur_defconfig
 
 # Partition sizes
 TARGET_USERIMAGES_USE_EXT4          := true
@@ -86,9 +81,9 @@ TARGET_KERNEL_MODULES += WLAN_MODULES
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
-BOARD_HAVE_BLUETOOTH          := true
-BOARD_HAVE_BLUETOOTH_QCOM     := true
-BLUETOOTH_HCI_USE_MCT         := true
+BOARD_HAVE_BLUETOOTH                        := true
+BOARD_HAVE_BLUETOOTH_QCOM                   := true
+BLUETOOTH_HCI_USE_MCT                       := true
 
 # Custom RIL class
 BOARD_RIL_CLASS                     := ../../../device/samsung/fortuna3g/ril/
@@ -114,24 +109,22 @@ BOARD_CHARGER_SHOW_PERCENTAGE        := true
 BOARD_CHARGER_ENABLE_SUSPEND         := true
 
 # Enable QCOM FM feature
-TARGET_QCOM_NO_FM_FIRMWARE           := true
-AUDIO_FEATURE_ENABLED_FM             := true
-QCOM_FM_ENABLED 		     := true
-BOARD_USES_SEPERATED_FM              := true
+#TARGET_QCOM_NO_FM_FIRMWARE           := true
+#AUDIO_FEATURE_ENABLED_FM             := true
 
 # Enable HW based full disk encryption
 TARGET_HW_DISK_ENCRYPTION            := true
 
 # Build our own PowerHAL
-TARGET_POWERHAL_VARIANT              := qcom
-#TARGET_POWERHAL_SET_INTERACTIVE_EXT  := $(LOCAL_PATH)/power/power_ext.c
+TARGET_POWERHAL_VARIANT              := cm
+TARGET_POWERHAL_NO_TOUCH_BOOST       := true
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH      := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS  := true
-BOARD_VOLD_MAX_PARTITIONS 	     := 65
+BOARD_VOLD_MAX_PARTITIONS            := 65
 BOARD_VOLD_EMMC_SHARES_DEV_MAJOR     := true
-BOARD_SUPPRESS_EMMC_WIPE 	     := true
+BOARD_SUPPRESS_EMMC_WIPE             := true
 
 # Camera
 TARGET_PROVIDES_CAMERA_HAL           := true
@@ -148,12 +141,9 @@ TARGET_QCOM_MEDIA_VARIANT           := caf
 TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
 
 # Display
-TARGET_USES_ION                     := true
-TARGET_USES_NEW_ION_API 	    := true
-TARGET_USES_OVERLAY 		    := true
-TARGET_USES_C2D_COMPOSITION         := true
-TARGET_HARDWARE_3D		    := false
-TARGET_HAVE_HDMI_OUT 		    := false
+TARGET_USES_OVERLAY 		        := true
+TARGET_HARDWARE_3D		            := false
+TARGET_HAVE_HDMI_OUT 		        := false
 USE_OPENGL_RENDERER                 := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS     := 3
 MAX_EGL_CACHE_KEY_SIZE              := 12*1024
@@ -169,12 +159,12 @@ TARGET_RECOVERY_FSTAB 				:= $(LOCAL_PATH)/rootdir/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 			:= true
 BOARD_HAS_LARGE_FILESYSTEM			:= true
 TARGET_RECOVERY_DENSITY 			:= hdpi
-BOARD_HAS_NO_MISC_PARTITION 		        := true
+BOARD_HAS_NO_MISC_PARTITION 		:= true
 BOARD_HAS_NO_SELECT_BUTTON 			:= true
 BOARD_RECOVERY_SWIPE 				:= true
-BOARD_USE_CUSTOM_RECOVERY_FONT 	        	:= \"roboto_23x41.h\"
+BOARD_USE_CUSTOM_RECOVERY_FONT 	    := \"roboto_23x41.h\"
 BOARD_USES_MMCUTILS 				:= true
-#RECOVERY_VARIANT				:= cm
+#RECOVERY_VARIANT				    := cm
 	
 # Misc.
 TARGET_SYSTEM_PROP                              := $(LOCAL_PATH)/system.prop
