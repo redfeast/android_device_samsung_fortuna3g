@@ -250,6 +250,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
 
+# IO Scheduler
+PRODUCT_PROPERTY_OVERRIDES += \
+    sys.io.scheduler=row
+
 # Common qcom
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)
 
