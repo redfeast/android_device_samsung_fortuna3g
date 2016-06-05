@@ -1108,6 +1108,15 @@ service hcidump /system/bin/sh /system/etc/hcidump.sh
     group bluetooth system net_bt_admin net_admin
     disabled
     oneshot
+	
+on charger
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    start vm_bms
+    load_all_props
+    start qcom-post-boot	
 
 service charger /charger
     class charger
@@ -1203,21 +1212,21 @@ on property:sys.qbcharger.enable=false
 #on property:persist.sys.rootagent=0
 #    stop rootagent
 
-#service bms-sh /system/bin/sh /init.qcom.bms.sh
-#    class core
-#    user root
-#    oneshot
+service bms-sh /system/bin/sh /init.qcom.bms.sh
+    class core
+    user root
+    oneshot
 
-#service vm_bms /system/bin/vm_bms
-#    user root
-#    group root
-#    disabled
+service vm_bms /system/bin/vm_bms
+    user root
+    group root
+    disabled
 
-#service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
-#    class core
-#    user root
-#    group root
-#    disabled
+service msm_irqbalance /system/bin/msm_irqbalance -f /system/vendor/etc/msm_irqbalance.conf
+    class core
+    user root
+    group root
+    disabled
 	
 service audiod /system/bin/audiod
    class late_start
