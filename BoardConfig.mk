@@ -29,6 +29,7 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 # Qcom
 TARGET_PLATFORM_DEVICE_BASE          := /devices/soc.0/
 HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE   := true
+USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY := true
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -120,6 +121,7 @@ TARGET_HW_DISK_ENCRYPTION            := true
 
 # Build our own PowerHAL
 TARGET_POWERHAL_VARIANT              := qcom
+CM_POWERHAL_EXTENSION                := qcom
 
 # Vold
 TARGET_USE_CUSTOM_LUN_FILE_PATH      := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
@@ -145,6 +147,7 @@ TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
 TARGET_USES_QCOM_MM_AUDIO			:= true
 
 # Display
+TARGET_CONTINUOUS_SPLASH_ENABLED    := true
 TARGET_USES_OVERLAY 		        := true
 TARGET_HARDWARE_3D		            := false
 TARGET_HAVE_HDMI_OUT 		        := false
