@@ -93,6 +93,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     SamsungDoze
 	
+# Touch issue workaround
+PRODUCT_PACKAGES += \
+    InputDisabler	
+	
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -151,10 +155,10 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    libc2dcolorconvert \
-	libOmxVidcCommon \
-	libOmxVdecHevc \
-	libOmxVdpp \
+    libextmedia_jni \
+    qcmediaplayer \
+    libdashplayer \
+    libOmxVidcCommon \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -162,11 +166,8 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
-	libdivxdrmdecrypt \
-    libstagefrighthw \
-    libdashplayer \
-    qcmediaplayer
-		
+    libstagefrighthw
+
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
 
@@ -189,7 +190,6 @@ PRODUCT_PACKAGES += \
 
 # Filesystem
 PRODUCT_PACKAGES += \
-    e2fsck \
     fsck.f2fs
 
 # Live Wallpapers
@@ -254,10 +254,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # We have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
-
-# IO Scheduler
-PRODUCT_PROPERTY_OVERRIDES += \
-    sys.io.scheduler=row
 
 # Common qcom
 $(call inherit-product, device/samsung/qcom-common/qcom-common.mk)

@@ -21,7 +21,6 @@ TARGET_GLOBAL_CFLAGS            += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS          += -mfpu=neon -mfloat-abi=softfp
 TARGET_CPU_VARIANT              := cortex-a53
 TARGET_CPU_CORTEX_A53           := true
-ARCH_ARM_HAVE_TLS_REGISTER      := true
 
 # Board CFLAGS
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
@@ -30,6 +29,9 @@ COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
 TARGET_PLATFORM_DEVICE_BASE          := /devices/soc.0/
 HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE   := true
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY := true
+TARGET_USES_QCOM_BSP := true
+BOARD_USES_QC_TIME_SERVICES := true
+BOARD_USES_QCOM_HARDWARE := true
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
@@ -127,8 +129,6 @@ CM_POWERHAL_EXTENSION                := qcom
 TARGET_USE_CUSTOM_LUN_FILE_PATH      := /sys/devices/platform/msm_hsusb/gadget/lun%d/file
 BOARD_VOLD_DISC_HAS_MULTIPLE_MAJORS  := true
 BOARD_VOLD_MAX_PARTITIONS            := 65
-BOARD_VOLD_EMMC_SHARES_DEV_MAJOR     := true
-BOARD_SUPPRESS_EMMC_WIPE             := true
 
 # Camera
 TARGET_PROVIDES_CAMERA_HAL           := true
@@ -144,18 +144,14 @@ TARGET_PROVIDES_LIBLIGHT            := true
 # Media
 TARGET_QCOM_MEDIA_VARIANT           := caf
 TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
-TARGET_USES_QCOM_MM_AUDIO			:= true
 
 # Display
-TARGET_CONTINUOUS_SPLASH_ENABLED    := true
-TARGET_USES_OVERLAY 		        := true
-TARGET_HARDWARE_3D		            := false
-TARGET_HAVE_HDMI_OUT 		        := false
-USE_OPENGL_RENDERER                 := true
-NUM_FRAMEBUFFER_SURFACE_BUFFERS     := 3
-MAX_EGL_CACHE_KEY_SIZE              := 12*1024
-MAX_EGL_CACHE_SIZE                  := 2048*1024
-OVERRIDE_RS_DRIVER                  := libRSDriver.so
+BOARD_EGL_CFG                         := $(LOCAL_PATH)/configs/egl.cfg
+TARGET_CONTINUOUS_SPLASH_ENABLED      := true
+NUM_FRAMEBUFFER_SURFACE_BUFFERS       := 3
+MAX_EGL_CACHE_KEY_SIZE                := 12*1024
+MAX_EGL_CACHE_SIZE                    := 2048*1024
+OVERRIDE_RS_DRIVER                    := libRSDriver.so
 
 # Boot animation
 TARGET_SCREEN_WIDTH                 := 540
