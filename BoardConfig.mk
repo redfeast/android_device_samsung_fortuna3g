@@ -47,7 +47,6 @@ TARGET_KERNEL_SOURCE         := kernel/samsung/fortunaxx3g
 #TARGET_KERNEL_CUSTOM_TOOLCHAIN  := arm-eabi-4.7
 TARGET_KERNEL_CONFIG             := msm8916_fortuna3g_eur_defconfig
 
-
 # Partition sizes
 TARGET_USERIMAGES_USE_EXT4          := true
 BOARD_BOOTIMAGE_PARTITION_SIZE      := 13631488
@@ -144,6 +143,7 @@ TARGET_PROVIDES_LIBLIGHT            := true
 # Media
 TARGET_QCOM_MEDIA_VARIANT           := caf
 TARGET_ENABLE_QC_AV_ENHANCEMENTS    := true
+TARGET_USES_QCOM_MM_AUDIO			:= true
 
 # Display
 BOARD_EGL_CFG                         := $(LOCAL_PATH)/configs/egl.cfg

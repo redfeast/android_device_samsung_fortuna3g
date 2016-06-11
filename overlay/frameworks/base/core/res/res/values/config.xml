@@ -132,9 +132,6 @@
         <item>7</item>
     </integer-array>
 
-    <!-- Boolean indicating whether the wifi chipset has dual frequency band support -->
-    <bool translatable="false" name="config_wifi_dual_band_support">true</bool>
-
     <!-- Control whether being in the desk dock should enable accelerometer
          based screen orientation.  This defaults to true because it is
          common for desk docks to be sold in a variety of form factors
@@ -226,9 +223,6 @@
     <!-- Whether UI for multi user should be shown -->
     <bool name="config_enableMultiUserUI">true</bool>
     
-    <!-- Flag indicating if the speed up audio on mt call code should be executed -->
-    <bool name="config_speed_up_audio_on_mt_calls">true</bool>
-
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- If true, the screen can be rotated via the accelerometer in all 4
@@ -301,22 +295,26 @@
     -->
     <integer name="config_longPressOnAppSwitchBehavior">1</integer>
 
-    <!-- Indicate whether closing the lid causes the device to go to sleep and opening
-         it causes the device to wake up.
+    <!-- Whether cpu boost is enabled for overscroller fling. -->
+    <bool name="config_enableCpuBoostForOverScrollerFling">true</bool>
+    <!-- Whether cpu boost is enabled for horizontal scroll. -->
+    <bool name="config_enableCpuBoostForScroller">true</bool>
+    <!-- Indicate whether to allow the device to suspend when the screen is off
+    due to the proximity sensor.  This resource should only be set to true
+    if the sensor HAL correctly handles the proximity sensor as a wake-up source
+    Otherwise, the device may fail to wake out of suspend reliably.
          The default is false. -->
-    <bool name="config_lidControlsSleep">true</bool>
+    <bool name="config_suspendWhenScreenOffDueToProximity">true</bool>
 
     <!-- Boolean to enable stk functionality on Samsung phones -->
     <bool name="config_samsung_stk">true</bool>
 
-    <!-- Disable dreams. Interferes with ambient display. -->
-    <bool name="config_dreamsSupported">false</bool>
-
     <!-- Ambient display. -->
+<!--	
     <integer name="config_screenBrightnessDoze">30</integer>
     <string name="config_dozeComponent">com.android.systemui/com.android.systemui.doze.DozeService</string>
     <bool name="config_dozeAfterScreenOff">true</bool>
-<!--
+	
     <string name="config_perf_profile_prop">powerhal</string>
     <string name="config_perf_profile_default_entry">1</string>
 -->	

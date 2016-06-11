@@ -69,22 +69,6 @@ on init
     symlink /storage/usbdisk /usbdisk
     symlink /storage/usbdisk /mnt/usbdisk
 	
-	# permission for CHARGING
-    chown system radio /sys/class/power_supply/battery/batt_discharging_check
-    chown system radio /sys/class/power_supply/battery/batt_discharging_check_adc
-    chown system radio /sys/class/power_supply/battery/batt_discharging_ntc
-    chown system radio /sys/class/power_supply/battery/batt_discharging_ntc_adc
-    chown system radio /sys/class/power_supply/battery/batt_self_discharging_control
-	
-	write /proc/sys/kernel/dmesg_restrict 1
-	
-	mkdir /dev/cpuctl/apps
-    chown system system /dev/cpuctl/apps/tasks
-    chmod 0666 /dev/cpuctl/apps/tasks
-    write /dev/cpuctl/apps/cpu.shares 1024
-    write /dev/cpuctl/apps/cpu.rt_runtime_us 800000
-    write /dev/cpuctl/apps/cpu.rt_period_us 1000000
-
 on early-boot
     # set RLIMIT_MEMLOCK to 64MB
     setrlimit 8 67108864 67108864

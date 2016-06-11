@@ -93,10 +93,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     SamsungDoze
 	
-# Touch issue workaround
-PRODUCT_PACKAGES += \
-    InputDisabler	
-	
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -155,10 +151,10 @@ PRODUCT_PACKAGES += \
 
 # OMX
 PRODUCT_PACKAGES += \
-    libextmedia_jni \
-    qcmediaplayer \
-    libdashplayer \
+    libc2dcolorconvert \
     libOmxVidcCommon \
+	libOmxVdecHevc \
+	libOmxVdpp \
     libOmxAacEnc \
     libOmxAmrEnc \
     libOmxCore \
@@ -166,7 +162,10 @@ PRODUCT_PACKAGES += \
     libOmxQcelp13Enc \
     libOmxVdec \
     libOmxVenc \
-    libstagefrighthw
+	libdivxdrmdecrypt \
+    libstagefrighthw \
+    libdashplayer \
+    qcmediaplayer
 
 PRODUCT_BOOT_JARS += \
     qcmediaplayer
@@ -190,6 +189,7 @@ PRODUCT_PACKAGES += \
 
 # Filesystem
 PRODUCT_PACKAGES += \
+    e2fsck \
     fsck.f2fs
 
 # Live Wallpapers
