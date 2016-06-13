@@ -42,7 +42,6 @@ $(ISDB_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(ISDB_SYMLINKS)
 
-# Keymaster
 KM_IMAGES := \
     keymaster.b00 keymaster.b01 keymaster.b02 keymaster.b03 keymaster.mdt
 
@@ -55,31 +54,49 @@ $(KM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(KM_SYMLINKS)
 
-# Kiwi
-KW_IMAGES := \
-    kiwi.b00 kiwi.b01 kiwi.b02 kiwi.b03 kiwi.mdt
+# MCpay
+MCP_IMAGES := \
+    mcpay.b00 mcpay.b01 mcpay.b02 mcpay.b03 mcpay.mdt
 
-KW_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(KM_IMAGES)))
-$(KW_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Kiwi firmware link: $@"
+MCP_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MCP_IMAGES)))
+$(MCP_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "MCP firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(KW_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(MCP_SYMLINKS)
 
-# Playready
-PLAYREADY_IMAGES := \
-    playread.b00 playread.b01 playread.b02 playread.b03 playread.mdt
+# MLdap
+MLD_IMAGES := \
+    mldap.b00 mldap.b01 mldap.b02 mldap.b03 mldap.mdt
 
-PLAYREADY_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(PLAYREADY_IMAGES)))
-$(PLAYREADY_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Playready firmware link: $@"
+MLD_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MLD_IMAGES)))
+$(MLD_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "MCP firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(PLAYREADY_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(MLD_SYMLINKS)
+
+# Modem
+MODEM_IMAGES := \
+    modem.b00 modem.b01 modem.b02 modem.b03 modem.b04 modem.b05 \
+    modem.b06 modem.b07 modem.b08 modem.b09 modem.b10 modem.b11 \
+	modem.b12 modem.b13 modem.b14 modem.b15 modem.b16 modem.b17 \
+	modem.b18 modem.b19 modem.b20 modem.b21 modem.b22 modem.b23 \
+	modem.b24 modem.b25 modem.b26 modem.b27 modem.b28 modem.mdt \
+    mba.mbn
+	
+MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MODEM_IMAGES)))
+$(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Modem firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware-modem/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(MODEM_SYMLINKS)
 
 # Prov
 PROV_IMAGES := \
@@ -94,19 +111,6 @@ $(PROV_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(PROV_SYMLINKS)
 
-# Reactive
-REACT_IMAGES := \
-    reactive.b00 reactive.b01 reactive.b02 reactive.b03 reactive.mdt
-
-REACT_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(REACT_IMAGES)))
-$(REACT_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Reactive firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(REACT_SYMLINKS)
-
 # SECstor
 SECSTOR_IMAGES := \
     sec_stor.b00 sec_stor.b01 sec_stor.b02 sec_stor.b03 sec_stor.mdt
@@ -120,6 +124,19 @@ $(SECSTOR_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(SECSTOR_SYMLINKS)
 
+# Reactive
+REACT_IMAGES := \
+    reactive.b00 reactive.b01 reactive.b02 reactive.b03 reactive.mdt
+
+REACT_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(REACT_IMAGES)))
+$(REACT_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Reactive firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(REACT_SYMLINKS)
+
 # SKM
 SKM_IMAGES := \
     skm.b00 skm.b01 skm.b02 skm.b03 skm.mdt
@@ -132,19 +149,6 @@ $(SKM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(SKM_SYMLINKS)
-
-# SKMM
-SKMMTA_IMAGES := \
-    skmm_ta.b00 skmm_ta.b01 skmm_ta.b02 skmm_ta.b03 skmm_ta.mdt
-
-SKMMTA_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(SKMMTA_IMAGES)))
-$(SKMMTA_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "SKMM firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(SKMMTA_SYMLINKS)
 
 # SSHDcap
 SSHDCPAP_IMAGES := \
@@ -172,21 +176,18 @@ $(TBASE_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TBASE_SYMLINKS)
 
-# Tima
-TIMA_IMAGES := \
-    tima_atn.b00 tima_atn.b01 tima_atn.b02 tima_atn.b03 tima_atn.mdt \
-    tima_key.b00 tima_key.b01 tima_key.b02 tima_key.b03 tima_key.mdt \
-    tima_lkm.b00 tima_lkm.b01 tima_lkm.b02 tima_lkm.b03 tima_lkm.mdt \
-    tima_pkm.b00 tima_pkm.b01 tima_pkm.b02 tima_pkm.b03 tima_pkm.mdt
+# Playready
+PLAYREADY_IMAGES := \
+    playread.b00 playread.b01 playread.b02 playread.b03 playread.mdt
 
-TIMA_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(TIMA_IMAGES)))
-$(TIMA_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Tima firmware link: $@"
+PLAYREADY_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(PLAYREADY_IMAGES)))
+$(PLAYREADY_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Playready firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(TIMA_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(PLAYREADY_SYMLINKS)
 
 # TZ
 TZ_IMAGES := \
@@ -202,17 +203,21 @@ $(TZ_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 
 ALL_DEFAULT_INSTALLED_MODULES += $(TZ_SYMLINKS)
 
-VENUS_IMAGES := \
-    venus.b00 venus.b01 venus.b02 venus.b03 venus.b04 venus.mdt
+# Tima
+TIMA_IMAGES := \
+    tima_atn.b00 tima_atn.b01 tima_atn.b02 tima_atn.b03 tima_atn.mdt \
+    tima_key.b00 tima_key.b01 tima_key.b02 tima_key.b03 tima_key.mdt \
+    tima_lkm.b00 tima_lkm.b01 tima_lkm.b02 tima_lkm.b03 tima_lkm.mdt \
+    tima_pkm.b00 tima_pkm.b01 tima_pkm.b02 tima_pkm.b03 tima_pkm.mdt
 
-VENUS_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(VENUS_IMAGES)))
-$(VENUS_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Venus firmware link: $@"
+TIMA_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(TIMA_IMAGES)))
+$(TIMA_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Tima firmware link: $@"
 	@mkdir -p $(dir $@)
 	@rm -rf $@
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
-ALL_DEFAULT_INSTALLED_MODULES += $(VENUS_SYMLINKS)
+ALL_DEFAULT_INSTALLED_MODULES += $(TIMA_SYMLINKS)
 
 # Wcnss
 WCNSS_IMAGES := \
@@ -240,22 +245,6 @@ $(WV_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
 	$(hide) ln -sf /firmware/image/$(notdir $@) $@
 
 ALL_DEFAULT_INSTALLED_MODULES += $(WV_SYMLINKS)
-
-# Modem
-MODEM_IMAGES := \
-    modem.b00 modem.b01 modem.b02 modem.b03 modem.b04 modem.b05 \
-    modem.b06 modem.b07 modem.b08 modem.b10 modem.b11 modem.b14 modem.b15 \
-    modem.b16 modem.b17 modem.b18 modem.b19 modem.b20 modem.b23 \
-    modem.b24 modem.b25 modem.b27 modem.b28 modem.mdt mba.mbn
-
-MODEM_SYMLINKS := $(addprefix $(TARGET_OUT_ETC)/firmware/,$(notdir $(MODEM_IMAGES)))
-$(MODEM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
-	@echo "Modem firmware link: $@"
-	@mkdir -p $(dir $@)
-	@rm -rf $@
-	$(hide) ln -sf /firmware-modem/image/$(notdir $@) $@
-
-ALL_DEFAULT_INSTALLED_MODULES += $(MODEM_SYMLINKS)
 
 # Create links for audcal data files
 $(shell mkdir -p $(TARGET_OUT_ETC)/firmware/wcd9306; \
