@@ -38,7 +38,8 @@
     </pcm_ids>
 
     <device_names>
-	    <!-- empty -->
+	    <!-- Input devices -->
+        <device name="SND_DEVICE_IN_CAMCORDER_MIC" alias="rec-stereo-mic" />
     </device_names>
 
 </audio_platform_info>
