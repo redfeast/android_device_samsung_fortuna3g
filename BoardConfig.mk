@@ -6,7 +6,7 @@
 
 LOCAL_PATH := device/samsung/fortuna3g
 
-BLOCK_BASED_OTA := false
+#BLOCK_BASED_OTA := false
 
 # Assert
 TARGET_OTA_ASSERT_DEVICE := samsung_sm_g530h,fortunave3g,fortuna3g
@@ -21,7 +21,7 @@ TARGET_GLOBAL_CFLAGS            += -mfpu=neon -mfloat-abi=softfp
 TARGET_GLOBAL_CPPFLAGS          += -mfpu=neon -mfloat-abi=softfp
 TARGET_CPU_VARIANT              := cortex-a53
 TARGET_CPU_CORTEX_A53           := true
-ARCH_ARM_HAVE_TLS_REGISTER      := true
+#ARCH_ARM_HAVE_TLS_REGISTER      := true
 
 # Board CFLAGS
 COMMON_GLOBAL_CFLAGS += -DQCOM_BSP
@@ -31,8 +31,7 @@ TARGET_PLATFORM_DEVICE_BASE          := /devices/soc.0/
 HAVE_SYNAPTICS_I2C_RMI4_FW_UPGRADE   := true
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY := true
 TARGET_USES_QCOM_BSP := true
-BOARD_USES_QC_TIME_SERVICES := true
-BOARD_USES_QCOM_HARDWARE := true
+#BOARD_USES_QC_TIME_SERVICES := true
 
 TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
