@@ -142,13 +142,6 @@ PRODUCT_PACKAGES += \
     libmm-qcamera \
     camera.msm8916
 
-# GPS HAL
-PRODUCT_PACKAGES += \
-    gps.msm8916 \
-	libgps.utils \
-	libloc_eng \
-	libloc_core
-
 # OMX
 PRODUCT_PACKAGES += \
     libc2dcolorconvert \
