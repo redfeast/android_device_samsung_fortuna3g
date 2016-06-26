@@ -93,6 +93,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     SamsungDoze
 	
+# Touch issue workaround
+PRODUCT_PACKAGES += \
+    InputDisabler	
+	
 # Audio
 PRODUCT_PACKAGES += \
     audiod \
@@ -237,7 +241,7 @@ ADDITIONAL_DEFAULT_PROPERTIES += \
 
 # KSM
 PRODUCT_PROPERTY_OVERRIDES += \
-	ro.ksm.default=1
+	ro.ksm.default=0
 
 # These are the hardware-specific settings that are stored in system properties.
 # Note that the only such settings should be the ones that are too low-level to
