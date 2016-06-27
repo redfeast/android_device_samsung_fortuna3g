@@ -68,11 +68,6 @@ ro.qualcomm.cabl=0
 
 # GPS
 persist.gps.qc_nlp_in_use=1
-ro.gps.agps_provider=1
-ro.pip.gated=0
-
-# Time
-persist.timed.enable=true
 
 # Art
 dalvik.vm.dex2oat-flags=--no-watch-dog

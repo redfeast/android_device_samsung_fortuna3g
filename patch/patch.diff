@@ -128,4 +128,88 @@ diff -ur a/frameworks/base/telephony/java/android/telephony/TelephonyManager.jav
 +        return propVal.isEmpty() ? defaultVal : propVal;
      }
  
-     /**			 
+     /**
+
+diff -ur a/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadio.java b/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadio.java
+--- a/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadio.java	Mon Jun 20 17:28:46 2016
++++ b/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadio.java	Mon Jun 27 10:41:05 2016
+@@ -193,6 +193,7 @@
+ 
+    private IFMRadioService mService = null;
+    private FmSharedPreferences mPrefs;
++   private AudioManager mAudioManager;
+ 
+    /* Button Resources */
+    private ImageView mOnOffButton;
+@@ -285,6 +286,7 @@
+    public void onCreate(Bundle savedInstanceState) {
+       super.onCreate(savedInstanceState);
+       setVolumeControlStream(AudioManager.STREAM_MUSIC);
++	  mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+       mPrefs = new FmSharedPreferences(this);
+       mCommandActive = CMD_NONE;
+       mCommandFailed = CMD_NONE;
+@@ -1664,6 +1666,9 @@
+             }
+ 
+             if((false == mService.isFmOn()) && isAntennaAvailable()) {
++				mAudioManager.setParameters("fm_mode=on;fm_radio_mute=0;fm_radio_volume=on;FMRadioVol=0.1496235728");
++                mAudioManager.setMode(AudioManager.MODE_IN_CALL);
++                mAudioManager.setSpeakerphoneOn(false);
+                 bStatus = mService.fmOn();
+                 if(bStatus) {
+                    tuneRadio(FmSharedPreferences.getTunedFrequency());
+@@ -1702,6 +1707,7 @@
+             }
+             bStatus = mService.fmOff();
+             enableRadioOnOffUI();
++			mAudioManager.setParameters("fm_mode=off;fm_radio_mute=1");
+             if (bStatus == false) {
+                 mCommandFailed = CMD_FMOFF;
+                 Log.e(LOGTAG, " mService.fmOff failed");
+
+diff -ur a/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadioService.java b/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadioService.java
+--- a/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadioService.java	Mon Jun 20 17:28:46 2016
++++ b/hardware/qcom/fm/fmapp2/src/com/caf/fmradio/FMRadioService.java	Mon Jun 27 10:45:01 2016
+@@ -2087,6 +2087,7 @@
+    public void enableSpeaker(boolean speakerOn) {
+        if(isCallActive())
+            return ;
++	   AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        mSpeakerPhoneOn = speakerOn;
+        boolean analogmode = isAnalogModeSupported();
+        if (false == speakerOn) {
+@@ -2095,6 +2096,8 @@
+                     stopRecording();
+                 stopFM();
+                AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_NONE);
++			   audioManager.setMode(AudioManager.MODE_IN_CALL);
++               audioManager.setSpeakerphoneOn(false);
+                if (mMuted) {
+                    setAudioPath(true);
+                } else {
+@@ -2130,6 +2133,8 @@
+                      unMute();
+                  }
+            }
++		   audioManager.setMode(AudioManager.MODE_IN_CALL);
++           audioManager.setSpeakerphoneOn(true);
+            AudioSystem.setForceUse(AudioSystem.FOR_MEDIA, AudioSystem.FORCE_SPEAKER);
+            if (analogmode)
+                 startFM();
+@@ -2232,6 +2237,7 @@
+       {
+          mMuted = true;
+          audioManager.setStreamMute(AudioManager.STREAM_MUSIC,true);
++		 audioManager.setParameters("fm_radio_mute=1");
+       }
+       return bCommandSent;
+    }
+@@ -2252,6 +2258,7 @@
+       {
+          mMuted = false;
+          audioManager.setStreamMute(AudioManager.STREAM_MUSIC,false);
++		 audioManager.setParameters("fm_radio_mute=0");
+          if (mResumeAfterCall)
+          {
+              //We are unmuting FM in a voice call. Need to enable FM audio routing.

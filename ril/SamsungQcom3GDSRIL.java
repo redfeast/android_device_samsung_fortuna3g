@@ -18,63 +18,18 @@ package com.android.internal.telephony;
 
 import static com.android.internal.telephony.RILConstants.*;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.LocalSocket;
-import android.net.LocalSocketAddress;
+import android.telephony.Rlog;
 import android.os.AsyncResult;
-import android.os.Handler;
-import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Parcel;
-import android.os.PowerManager;
 import android.os.SystemProperties;
-import android.os.PowerManager.WakeLock;
-import android.provider.Settings.SettingNotFoundException;
-import android.telephony.CellInfo;
-import android.telephony.NeighboringCellInfo;
 import android.telephony.PhoneNumberUtils;
-import android.telephony.Rlog;
 import android.telephony.SignalStrength;
-import android.telephony.SmsManager;
-import android.telephony.SmsMessage;
-import android.text.TextUtils;
-import android.util.SparseArray;
-import android.media.AudioManager;
-
-import com.android.internal.telephony.gsm.SmsBroadcastConfigInfo;
-import com.android.internal.telephony.gsm.SsData;
-import com.android.internal.telephony.gsm.SuppServiceNotification;
 import com.android.internal.telephony.uicc.IccCardApplicationStatus;
 import com.android.internal.telephony.uicc.IccCardStatus;
-import com.android.internal.telephony.uicc.IccIoResult;
-import com.android.internal.telephony.uicc.IccRefreshResponse;
-import com.android.internal.telephony.uicc.IccUtils;
-import com.android.internal.telephony.cdma.CdmaCallWaitingNotification;
-import com.android.internal.telephony.cdma.CdmaInformationRecords;
-import com.android.internal.telephony.cdma.CdmaSmsBroadcastConfigInfo;
-import com.android.internal.telephony.dataconnection.DcFailCause;
-import com.android.internal.telephony.dataconnection.DataCallResponse;
-import com.android.internal.telephony.dataconnection.DataProfile;
-
-import java.io.ByteArrayInputStream;
-import java.io.DataInputStream;
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.Random;
 
 /**
  * Qualcomm RIL for Samsung MSM8916 (3G) devices
@@ -84,7 +39,6 @@ public class SamsungQcom3GDSRIL extends RIL {
 
     private static final int RIL_REQUEST_DIAL_EMERGENCY = 10001;
     private static final int RIL_UNSOL_ON_SS_LL = 11055;
-    private static final int RIL_UNSOL_AM = 11010;
 
     public SamsungQcom3GDSRIL(Context context, int networkMode, int cdmaSubscription) {
         super(context, networkMode, cdmaSubscription, null);
@@ -96,7 +50,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         super(context, preferredNetworkType, cdmaSubscription, instanceId);
         mQANElements = 6;
     }
-     
+
     @Override
     public void
     dial(String address, int clirMode, UUSInfo uusInfo, Message result) {
@@ -121,7 +75,7 @@ public class SamsungQcom3GDSRIL extends RIL {
             rr.mParcel.writeInt(uusInfo.getDcs());
             rr.mParcel.writeByteArray(uusInfo.getUserData());
         }
-		
+
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -267,7 +221,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         int lteCqi = p.readInt();
         int tdScdmaRscp = p.readInt();
         // constructor sets default true, makeSignalStrengthFromRilParcel does not set it
-        boolean isGsm = true;
+  	boolean isGsm = true;
 
         if ((lteSignalStrength & 0xff) == 255 || lteSignalStrength == 99) {
             lteSignalStrength = 99;
@@ -295,7 +249,7 @@ public class SamsungQcom3GDSRIL extends RIL {
     @Override
     protected void
     processUnsolicited (Parcel p) {
-        Object ret = null;
+        Object ret;
         int dataPosition = p.dataPosition();
         int response = p.readInt();
         int newResponse = response;
@@ -304,35 +258,15 @@ public class SamsungQcom3GDSRIL extends RIL {
             case RIL_UNSOL_ON_SS_LL:
                 newResponse = RIL_UNSOL_ON_SS;
                 break;
-			case RIL_UNSOL_AM:
-                ret = responseString(p);
-                break;	
         }
-        switch (response) {
-              case RIL_UNSOL_AM:
-			    samsungUnsljLogRet(response, ret);
-                String amString = (String) ret;
-                Rlog.d(RILJ_LOG_TAG, "Executing AM: " + amString);
-
-                try {
-                    Runtime.getRuntime().exec("am " + amString);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Rlog.e(RILJ_LOG_TAG, "am " + amString + " could not be executed.");
-                }
-                break;
-
-	    default:
-             if (newResponse != response) {
-                  p.setDataPosition(dataPosition);
-                  p.writeInt(newResponse);
-            }
-	        p.setDataPosition(dataPosition);
-    		super.processUnsolicited(p);
-    		return;
-	}
+        if (newResponse != response) {
+            p.setDataPosition(dataPosition);
+            p.writeInt(newResponse);
+        }
+        p.setDataPosition(dataPosition);
+        super.processUnsolicited(p);
     }
-	
+
     @Override
     public void
     acceptCall (Message result) {
@@ -341,7 +275,7 @@ public class SamsungQcom3GDSRIL extends RIL {
 
         rr.mParcel.writeInt(1);
         rr.mParcel.writeInt(0);
-		
+
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -358,7 +292,7 @@ public class SamsungQcom3GDSRIL extends RIL {
         rr.mParcel.writeInt(3);        // CallDetails.call_domain
         rr.mParcel.writeString("");    // CallDetails.getCsvFromExtra
         rr.mParcel.writeInt(0);        // Unknown
-        
+
         if (RILJ_LOGD) riljLog(rr.serialString() + "> " + requestToString(rr.mRequest));
 
         send(rr);
@@ -435,19 +369,5 @@ public class SamsungQcom3GDSRIL extends RIL {
             response[3] = "2";
         }
         return response;
-    }
-	
-	static String
-    samsungResponseToString(int request)
-    {
-        switch(request) {
-            // SAMSUNG STATES
-            case RIL_UNSOL_AM: return "RIL_UNSOL_AM";
-            default: return "<unknown response: "+request+">";
-        }
-    }
-    
-    protected void samsungUnsljLogRet(int response, Object ret) {
-        riljLog("[UNSL]< " + samsungResponseToString(response) + " " + retToString(response, ret));
     }
 }
