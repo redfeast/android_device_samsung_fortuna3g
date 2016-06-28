@@ -48,8 +48,8 @@ public class ScreenStateReceiver extends BroadcastReceiver implements SensorEven
                 mScreenOn = true;
 
                 // Perform enable->disable->enable sequence
-                enableDevices(true);
-				enableDevices(false, true);
+                //enableDevices(true);
+				//enableDevices(false, true);
 				enableDevices(true, true);
                 break;
             case Intent.ACTION_SCREEN_OFF:
@@ -57,7 +57,8 @@ public class ScreenStateReceiver extends BroadcastReceiver implements SensorEven
 
                 mScreenOn = false;
 
-                enableDevices(false);
+                //enableDevices(false);
+				 enableDevices(false, true);
                 break;
             case Constants.ACTION_DOZE_PULSE_STARTING:
                 Log.d(TAG, "Doze");
@@ -70,12 +71,14 @@ public class ScreenStateReceiver extends BroadcastReceiver implements SensorEven
                             if(DEBUG)
                                 Log.d(TAG, "Screen was turned on while dozing");
 
-                            enableDevices(false);
+                            //enableDevices(false);
+							 enableDevices(false, true);
                         } else {
                             if(DEBUG)
                                 Log.d(TAG, "Screen was turned off while dozing");
 
-                            enableDevices(true);
+                            //enableDevices(true);
+							 enableDevices(true, true);
                         }
                     }
                 };
@@ -84,8 +87,8 @@ public class ScreenStateReceiver extends BroadcastReceiver implements SensorEven
                 // Don't enable touch keys when dozing
                 // Perform enable->disable->enable sequence
                 enableDevices(true, true);
-		enableDevices(false, true);
-		enableDevices(true, true);
+				//enableDevices(false, true);
+				//enableDevices(true, true);
                 break;
             case TelephonyManager.ACTION_PHONE_STATE_CHANGED:
                 Log.d(TAG, "Phone state changed!");
@@ -174,14 +177,15 @@ public class ScreenStateReceiver extends BroadcastReceiver implements SensorEven
             if(DEBUG)
             	Log.d(TAG, "Proximity: screen off");
 
-	    enableDevices(false);
+	    //enableDevices(false);
+		enableDevices(false, true);
         } else {
             if(DEBUG)
             	Log.d(TAG, "Proximity: screen on");
 
             // Perform enable->disable->enable sequence
-            enableDevices(true);
-            enableDevices(false, true);
+            //enableDevices(true);
+            //enableDevices(false, true);
             enableDevices(true, true);
         }
     }
