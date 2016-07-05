@@ -42,7 +42,7 @@ BOARD_KERNEL_TAGS_OFFSET     := 0x81E00000
 BOARD_RAMDISK_OFFSET         := 0x82000000
 BOARD_KERNEL_PAGESIZE        := 2048
 BOARD_KERNEL_SEPARATED_DT    := true
-TARGET_KERNEL_SOURCE         := kernel/samsung/fortunaxx3g
+TARGET_KERNEL_SOURCE         := kernel/samsung/fortuna3g
 #TARGET_KERNEL_CUSTOM_TOOLCHAIN  := arm-eabi-4.7
 TARGET_KERNEL_CONFIG             := msm8916_sec_fortuna3g_eur_cm_defconfig
 
@@ -102,7 +102,7 @@ MALLOC_IMPL                         := dlmalloc
 # Vendor Init
 TARGET_UNIFIED_DEVICE               := true
 TARGET_INIT_VENDOR_LIB              := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/init/init_fortuna3g.c
+TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/device/samsung/fortuna3g/init/init_fortuna3g.c
 
 # Audio
 TARGET_QCOM_AUDIO_VARIANT            := caf
