@@ -45,6 +45,8 @@ BOARD_KERNEL_SEPARATED_DT    := true
 TARGET_KERNEL_SOURCE         := kernel/samsung/fortunaxx3g
 #TARGET_KERNEL_CUSTOM_TOOLCHAIN  := arm-eabi-4.7
 TARGET_KERNEL_CONFIG             := msm8916_fortuna3g_eur_defconfig
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x82000000 --tags_offset 0x81E00000 --dt $(PRODUCT_OUT)/dt.img
+TARGET_PREBUILT_KERNEL := device/samsung/fortuna3g/zImage
 
 # Partition sizes
 TARGET_USERIMAGES_USE_EXT4          := true
