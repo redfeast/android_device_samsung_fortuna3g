@@ -169,7 +169,7 @@ BOARD_HAS_NO_SELECT_BUTTON 			:= true
 BOARD_RECOVERY_SWIPE 				:= true
 BOARD_USE_CUSTOM_RECOVERY_FONT 	    := \"roboto_23x41.h\"
 BOARD_USES_MMCUTILS 				:= true
-#RECOVERY_VARIANT				    := cm
+RECOVERY_VARIANT				    := twrp
 
 # Logging
 TARGET_USES_LOGD                    := false
