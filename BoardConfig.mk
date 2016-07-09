@@ -44,17 +44,10 @@ BOARD_KERNEL_PAGESIZE        := 2048
 BOARD_KERNEL_SEPARATED_DT    := true
 TARGET_KERNEL_SOURCE         := kernel/samsung/fortuna3g
 #TARGET_KERNEL_CUSTOM_TOOLCHAIN  := arm-eabi-4.7
-<<<<<<< HEAD
-TARGET_KERNEL_CONFIG             := msm8916_sec_fortuna3g_eur_cm_defconfig
-||||||| parent of 00650d7... remove dependency of init on qcom-common
-TARGET_KERNEL_CONFIG             := msm8916_fortuna3g_eur_defconfig
-BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x82000000 --tags_offset 0x81E00000 --dt $(PRODUCT_OUT)/dt.img
-TARGET_PREBUILT_KERNEL := device/samsung/fortuna3g/zImage
-=======
 TARGET_KERNEL_CONFIG             := msm8916_fortuna3g_eur_defconfig
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x82000000 --tags_offset 0x81E00000 --dt $(PRODUCT_OUT)/dt.img
 TARGET_PREBUILT_KERNEL :=  device/samsung/fortuna3g/zImage
->>>>>>> 00650d7... remove dependency of init on qcom-common
+
 
 # Partition sizes
 TARGET_USERIMAGES_USE_EXT4          := true
@@ -111,16 +104,9 @@ MALLOC_IMPL                         := dlmalloc
 
 # Vendor Init
 TARGET_UNIFIED_DEVICE               := true
-<<<<<<< HEAD
-TARGET_INIT_VENDOR_LIB              := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/device/samsung/fortuna3g/init/init_fortuna3g.c
-||||||| parent of 00650d7... remove dependency of init on qcom-common
-TARGET_INIT_VENDOR_LIB              := libinit_msm
-TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/init/init_fortuna3g.c
-=======
 TARGET_INIT_VENDOR_LIB              := libinit_fortuna3g
 TARGET_LIBINIT_DEFINES_FILE         := $(LOCAL_PATH)/init/init_fortuna3g.c
->>>>>>> 00650d7... remove dependency of init on qcom-common
+
 
 # Audio
 TARGET_QCOM_AUDIO_VARIANT            := caf
