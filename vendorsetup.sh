@@ -1,3 +1,2 @@
-for i in eng userdebug user; do
-	add_lunch_combo cm_fortuna3g-${i}
-done
+	add_lunch_combo pac_fortuna3g-userdebug
+
